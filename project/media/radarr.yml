@@ -1,0 +1,19 @@
+services:
+  radarr:
+    extends:
+      file: ${TEMPLATES_PATH}
+      service: default
+    image: lscr.io/linuxserver/radarr
+    ports:
+      - 7878:7878
+    networks:
+      - private
+    environment:
+      PGID: ${PGID}
+      PUID: ${PUID}
+      TZ: ${TZ}
+      UMASK: 002
+    volumes:
+      # You can include directories relative to this file as well
+      - ./radarr/config:/config
+      - /Downloads:/data/downloads

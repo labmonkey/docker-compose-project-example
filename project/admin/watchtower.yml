@@ -1,0 +1,14 @@
+services:
+  watchtower:
+    extends:
+      file: ${TEMPLATES_PATH}
+      service: default
+    image: containrrr/watchtower
+    networks:
+      - private
+    environment:
+      TZ: ${TZ}
+      WATCHTOWER_CLEANUP: ${WATCHTOWER_CLEANUP}
+      WATCHTOWER_SCHEDULE: ${WATCHTOWER_SCHEDULE}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

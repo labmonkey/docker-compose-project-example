@@ -1,0 +1,18 @@
+services:
+  server:
+    extends:
+      file: ${TEMPLATES_PATH}
+      service: default
+    image: lscr.io/linuxserver/nginx:latest
+    volumes:
+      # This component uses its own directory that is included relatively to this file location
+      # You can keep this way volumes together with compose definitions
+      - ./www:/config/www
+    ports:
+      - 80:80
+    networks:
+      - public
+    environment:
+      PGID: ${PGID}
+      PUID: ${PUID}
+      TZ: ${TZ}

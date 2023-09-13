@@ -1,0 +1,13 @@
+# While this file is not meant to be deployed directly it is used for "inheritance" of your sevices. 
+# Below you can see a service that I've called "default" which is used as a base definition for other services.
+# It defines only the most common properties that I need. It does not have the 'image' for example as each extending service will have its own 'image'.
+# Of course you can have more templates here or even 'extend' them from each other.
+services:
+  default:
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
+    logging:
+      options:
+        max-size: "5m"
+        max-file: "3"

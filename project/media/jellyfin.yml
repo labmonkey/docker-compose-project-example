@@ -1,0 +1,20 @@
+services:
+  jellyfin:
+    extends:
+      file: ${TEMPLATES_PATH}
+      service: default
+    image: lscr.io/linuxserver/jellyfin
+    ports:
+      - 8096:8096
+      - 8920:8920
+    networks:
+      - public
+    environment:
+      PGID: ${PGID}
+      PUID: ${PUID}
+      TZ: ${TZ}
+    volumes:
+      # You can include directories relative to this file as well
+      - ./jellyfin/config:/config
+      - /Movies:/media/Movies
+      - /Series:/media/Series

@@ -1,0 +1,24 @@
+# Here I will include all "child" docker compose files that I need.
+# The paths can relative to this file or absolue. I've used INCLUDE_PATH variable to make it more cofigurable.
+# Whenever I need to remove some service then I can comment out the lines here. 
+include:
+  - path:
+      - ${INCLUDE_PATH}/admin/pihole.yml
+      - ${INCLUDE_PATH}/admin/watchtower.yml
+    env_file: ${INCLUDE_PATH}/admin/.env
+
+  - path:
+      - ${INCLUDE_PATH}/media/jellyfin.yml
+      - ${INCLUDE_PATH}/media/radarr.yml
+    env_file: ${INCLUDE_PATH}/media/.env
+
+  - path:
+      - ${INCLUDE_PATH}/web/server.yml
+      # - ${INCLUDE_PATH}/web/client.yml # Commented out example
+
+# Below I would place all the "common" configuration that I need. For example volumes or networks that will be used by "child" compose files.
+networks:
+  private:
+    name: example-private
+  public:
+    name: example-public

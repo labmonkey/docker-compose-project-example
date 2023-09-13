@@ -1,0 +1,18 @@
+services:
+  pihole:
+    extends:
+      file: ${TEMPLATES_PATH}
+      service: default
+    image: pihole/pihole:latest
+    ports:
+      - 80:80/tcp
+      - 53:53/tcp
+      - 53:53/udp
+    networks:
+      - private
+    environment:
+      TZ: ${TZ}
+    volumes:
+      # You can include directories relative to this file as well
+      - ./pihole/etc-pihole:/etc/pihole
+      - ./pihole/etc-dnsmasq.d:/etc/dnsmasq.d

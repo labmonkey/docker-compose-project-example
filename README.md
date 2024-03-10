@@ -33,6 +33,41 @@ With [extends](https://docs.docker.com/compose/multiple-compose-files/extends/) 
   Of course you can have more services defined to inherit from.
 - In the `docker-compose.templates.yml` file itself I've put the common settings for my containers in the base service called `default`. It contains settings such as logs, security or even the restart mode. No need to repeat those for each service anymore!
 
-## Features that could not be used
+## Alternative approaches
+
+There are other ways you can manage your docker stack that I did not use myself.
+
+### Having multiple docker-compose.yml files
+
+This is possibly the most basic and most common approach. You can split your stack into multiple `docker-compose.yml` files (each in its own directory!) where each of them would contain a set of containers that are related to each other (such as appp + db) and then use the `-f` flag to point to the file you wish to manage. For example `docker compose -f project/admin/pihole.yml up`. Simple and works but it has some limitations:
+
+- You have to manage each of the "Stacks" separately and they do not know about each other. This makes having common configuration or templates or using `depends_on` more complicated.
+- If you edit your stack a lot and use `--remove-orphans` to clean the leftovers then deploying one stack like that will remove all other stacks. Because at that point Docker thinks that all you want to be up and running is that single stack.
+
+This solution is pretty much same as the approach I explain in this repo but the files are just not "tied" together by using `include`.
+
+### Combining docker-compose.yml files by special ENV variables
+
+This is what I was using initally because of its simplicity. It is possible to create an `.env` file in your project root directory and there to define `COMPOSE_FILE` and/or `COMPOSE_ENV_FILES` where you can define multiple files. [Set or change pre-defined environment variables in Docker Compose](https://docs.docker.com/compose/environment-variables/envvars/).
+
+Example `.env` file:
+
+```bash
+COMPOSE_FILE=project/admin/pihole.yml:project/media/jellyfin.yml:project/web/server.yml
+COMPOSE_ENV_FILES=project/admin/.env,project/media/.env,project/web/.env
+```
+
+
+### YAML Anchors and Aliases
 
 The [fragments](https://docs.docker.com/compose/compose-file/10-fragments/) and [extensions](https://docs.docker.com/compose/compose-file/11-extension/) were not used. Both of them make use of the [Anchors and Aliases](https://docs.docker.com/compose/compose-file/11-extension/) which are built-in YAML features. The reason that these were not used is that anchors and aliases do not work with multiple files which is the main principle of this example (for example you can define aliases in one common file and then reference tham in other files). They can still be defined and used in each of your files individually if it will be useful for you. Personally, I believe this limitation was the main driver for docker team to add [extends](https://docs.docker.com/compose/multiple-compose-files/extends/) attribute which overcomes those limitations and thats why I prefered it this way.
+
+Still, there is a "workaround" that would allow you to use YAML anchors with multiple files. The way to do it would be to have an additional script that you would use instead of running `docker compose update` etc. directly and that would combine all your compose files into one before running docker command. An example implementation would look like this `cat docker-compose.yml project/admin/pihole.yml project/admin/watchtower.yml etc... | docker compose -f - up` (The `-f -` makes compose read `docker-compose.yml` content from `stdin` instead of actual file). Although I did not test it myself. You could also find a better way to collect recursively file contents other that `cat`.
+
+### Portrainer
+
+Some people like to use [Portainer](https://www.portainer.io). It is a big project on its own so I will not go much into details here. Generally you can deploy it to your server and manage your stack with a nice GUI and many, many options. Their solution to the problem of having too big docker stack is actually [Stacks](https://www.portainer.io/blog/stacks-docker-compose-the-portainer-way) which is their own alternative to docker-compose files which allows advanced templating etc. I did not like it because it seemed to me to be an overkill for my simple home server, also I wanted to follow pure docker solution and "Stacks" is a Portainer product.
+
+### Dockge
+
+I know [Dockge](https://github.com/louislam/dockge) can be also used but I did not try it myself.

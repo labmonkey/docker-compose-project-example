@@ -6,6 +6,8 @@ This is an example project with some explanation of how you can make the best us
 
 ### The `include` attribute for easier maintenance and clear project structure
 
+`Note: Please note this requires Docker Compose version 2.20.0 or later. So you might need to update especially if you are on Synology device as they tend to be behind.`
+
 The more services you have the bigger your `docker-compose.yml` file gets. To the point that it can be hard to maintain. With [include](https://docs.docker.com/compose/compose-file/14-include/) attribute you can split your compose file into smaller chunks and group them as you like. Each of those "groups" can have its own `.env` files and extra directories. Take control of that mess!
 
 - Your `docker-compose.yml` file from now on will be meant to act as a central point of your whole stack and define as few settings as possible, mainly list all the files that your whole stack contains by using [include](https://docs.docker.com/compose/compose-file/14-include/) attribute.

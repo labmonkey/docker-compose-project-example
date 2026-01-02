@@ -9,7 +9,7 @@ services:
       # You can keep this way volumes together with compose definitions
       - ./www:/config/www
     ports:
-      - 80:80
+      - 40080:80
     networks:
       - public
     environment:

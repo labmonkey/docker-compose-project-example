@@ -5,8 +5,8 @@ services:
       service: default
     image: lscr.io/linuxserver/jellyfin
     ports:
-      - 8096:8096
-      - 8920:8920
+      - 58096:8096
+      - 58920:8920
     networks:
       - public
     environment:

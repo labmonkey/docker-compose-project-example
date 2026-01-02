@@ -5,9 +5,9 @@ services:
       service: default
     image: pihole/pihole:latest
     ports:
-      - 80:80/tcp
-      - 53:53/tcp
-      - 53:53/udp
+      - 50080:80/tcp
+      - 50053:53/tcp
+      - 50053:53/udp
     networks:
       - private
     environment:

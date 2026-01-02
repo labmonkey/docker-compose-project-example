@@ -2,6 +2,12 @@
 
 This is an example project with some explanation of how you can make the best use of compose features when your stack grows. I've created it as I could not find any simple, easy to understand and "raw" example myself that would cover all the information you can find in the web.
 
+## Running the project
+
+A simple `docker compose up` is enough as this solution is using purely Docker provided features. This repository contains just an example project but it is runnable if needed (unless you have port binding conflicts).
+
+Tested on Ubuntu Linux.
+
 ## The main features covered
 
 ### The `include` attribute for easier maintenance and clear project structure
@@ -58,7 +64,6 @@ Example `.env` file:
 COMPOSE_FILE=project/admin/pihole.yml:project/media/jellyfin.yml:project/web/server.yml
 COMPOSE_ENV_FILES=project/admin/.env,project/media/.env,project/web/.env
 ```
-
 
 ### YAML Anchors and Aliases
 

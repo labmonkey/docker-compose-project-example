@@ -5,7 +5,7 @@ services:
       service: default
     image: lscr.io/linuxserver/radarr
     ports:
-      - 7878:7878
+      - 57878:7878
     networks:
       - private
     environment:

@@ -14,7 +14,7 @@ include:
 
   - path:
       - ${INCLUDE_PATH}/web/server.yml
-      # - ${INCLUDE_PATH}/web/client.yml # Commented out example
+      # - ${INCLUDE_PATH}/web/client.yml # Just comment out services that you want to be ignored/disabled
 
 # Below I would place all the "common" configuration that I need. For example volumes or networks that will be used by "child" compose files.
 networks:

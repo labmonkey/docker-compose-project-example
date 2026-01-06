@@ -79,6 +79,10 @@ Some people like to use [Portainer](https://www.portainer.io). It is a big proje
 
 I know [Dockge](https://github.com/louislam/dockge) can be also used but I did not try it myself. Check releases page because people complain about lack of development.
 
+### Compose Farm
+
+If you need to run docker compose on multiple hosts (run `compose up` via ssh in multiple destinations) then youy can try [Compose Farm](https://github.com/basnijholt/compose-farm/)
+
 ### Komodo
 
 Another one I found that might be worth checking is [Komodo](https://komo.do/).
